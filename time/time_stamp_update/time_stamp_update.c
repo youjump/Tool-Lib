@@ -64,7 +64,7 @@ tm_t add_tick_to_stamp (tm_t* t, uint32_t sec)
         }
         else
         {
-            t_out.day = day_add;
+            t_out.day += day_add;
             break;
         }
     }
