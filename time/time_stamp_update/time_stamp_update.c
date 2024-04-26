@@ -54,13 +54,14 @@ tm_t add_tick_to_stamp (tm_t* t, uint32_t sec)
 
         int temp = (a == 1 && leapyear_check(year_temp)) ? (month_buf[a] + 1) : month_buf[a];
 
+        /* If we update the month, initial the day to the '1' */
         if (mon_add)
-            day_temp = 0;
+            day_temp = 1;
 
         if (day_add + day_temp > temp)
         {
             mon_add ++;
-            day_add -= (temp - day_temp);
+            day_add -= (temp - day_temp + 1);
         }
         else
         {
@@ -81,15 +82,15 @@ tm_t add_tick_to_stamp (tm_t* t, uint32_t sec)
 int main(char* argv[], int argc)
 {
     tm_t tt_in, tt_out;
-    uint32_t add_sec = 123456789;
+    uint32_t add_sec = 31*86400;
 
     tt_out.h_year = 20;
-    tt_out.l_year = 19;
-    tt_out.mon = 12;
-    tt_out.day = 7;
-    tt_out.hour = 10;
-    tt_out.min = 10;
-    tt_out.sec = 10;
+    tt_out.l_year = 24;
+    tt_out.mon = 1;
+    tt_out.day = 1;
+    tt_out.hour = 0;
+    tt_out.min = 0;
+    tt_out.sec = 0;
 
     tt_in = add_tick_to_stamp(&tt_out, add_sec);
     printf("%02d%02d-%02d-%02d %02d:%02d:%02d\n",
